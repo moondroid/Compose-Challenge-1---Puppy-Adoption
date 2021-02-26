@@ -1,21 +1,25 @@
 package com.example.androiddevchallenge.ui.detail
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,7 +38,13 @@ fun DetailScreen(
         topBar = {
             val title = stringResource(id = R.string.app_name)
             TopAppBar(
-                title = { Text(text = title) }
+                title = { Text(text = title) },
+                navigationIcon = {
+                    IconButton(
+                        onClick = {}) {
+                        Icon(Icons.Filled.ArrowBack, "back")
+                    }
+                }
             )
         },
         content = { _ ->
@@ -57,12 +67,13 @@ fun PuppyDetail(
             modifier = Modifier
                 .height(180.dp)
                 .fillMaxWidth()
-                .clip(shape = RoundedCornerShape(4.dp)),
+                .clip(shape = RoundedCornerShape(6.dp)),
             contentScale = ContentScale.Crop,
             loading = {
-                Box(Modifier.matchParentSize()) {
-                    CircularProgressIndicator(Modifier.align(Alignment.Center))
-                }
+                Image(painterResource(R.drawable.puppy_detail_placeholder), puppy.name)
+            },
+            error = {
+                Image(painterResource(R.drawable.puppy_detail_placeholder), puppy.name)
             },
             fadeIn = true
         )
